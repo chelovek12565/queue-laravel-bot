@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+  queue-api:
+    container_name: queue-api
+    image: httpd
+    working_dir: /var/www/application
+    volumes:
+      - ./:/var/www/application
+    environment:
+      VIRTUAL_HOST: gueue-api.local.gd
+      APACHE_DOCUMENT_ROOT: /var/www/application/public
+    networks:
+      - chelnet
+networks:
+  chelnet:
+    name: chelnet
+    driver: bridge
