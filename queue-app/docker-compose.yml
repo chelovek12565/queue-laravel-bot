@@ -1,18 +1,64 @@
-version: '3.6'
+version: '3'
 
 services:
-  queue-api:
-    container_name: queue-api
-    image: httpd
+  # PHP-FPM сервис
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: laravel-app
     working_dir: /var/www/application
     volumes:
       - ./:/var/www/application
-    environment:
-      VIRTUAL_HOST: gueue-api.local.gd
-      APACHE_DOCUMENT_ROOT: /var/www/application/public
     networks:
-      - chelnet
+      - laravel_network
+
+  # Nginx сервис
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: common-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/application
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - laravel_network
+    depends_on:
+      - app
+
+  # MySQL сервис
+  mysql8:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    container_name: laravel-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_HOST: "%"
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel_network
+
+  # PhpMyAdmin сервис
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    links:
+      - mysql8:db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - laravel_network
+    depends_on:
+      - mysql8
+      - nginx-proxy
+
 networks:
-  chelnet:
-    name: chelnet
+  laravel_network:
     driver: bridge
