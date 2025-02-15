@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Api\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Domain\User\Domain\Services\UserDomainService;
 use App\Http\Requests\UserRequest;
-use App\Http\Presenters\UserPresenter;
+use App\Http\Api\Presenters\UserPresenter;
 
 class UserController extends Controller
 {

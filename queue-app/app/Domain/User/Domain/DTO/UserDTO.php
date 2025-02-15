@@ -8,7 +8,6 @@ use Spatie\LaravelData\Optional;
 class UserDTO extends BaseDTO
 {
     public function __construct(
-        public int|Optional $id,
         public int|Optional $tgid,
         public string $firstName,
         public string|Optional $secondName,

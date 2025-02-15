@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Presenters;
+namespace App\Http\Api\Presenters;
 
 use App\Domain\User\Domain\Entities\User;
 use Illuminate\Http\Request;
