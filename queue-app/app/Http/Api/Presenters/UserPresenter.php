@@ -20,8 +20,8 @@ class UserPresenter extends JsonResource
             'first_name'  => $this->first_name,
             'second_name' => $this->second_name,
             'username'    => $this->username,
-            'created_at'  => $this->created_at->toISOString(),
-            'updated_at'  => $this->updated_at->toISOString(),
+            'updated_at'  => $this->updated_at,
+            'created_at'  => $this->created_at
         ];
     }
 }

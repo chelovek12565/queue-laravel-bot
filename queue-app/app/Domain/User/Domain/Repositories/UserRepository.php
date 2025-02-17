@@ -16,6 +16,11 @@ class UserRepository extends BaseEloquentRepository
         return User::class;
     }
 
+    public function find(int $id):?User
+    {
+        return $this->newQuery()->find($id);
+    }
+
     public function findByTgid(int $tgid): ?User
     {
         return $this->newQuery()->firstWhere('tgid', $tgid);

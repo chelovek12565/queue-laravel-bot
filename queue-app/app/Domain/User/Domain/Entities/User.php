@@ -3,7 +3,7 @@
 
 namespace App\Domain\User\Domain\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Domain\Room\Entities\Room;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -19,5 +19,11 @@ use Illuminate\Support\Carbon;
  */
 class User extends Model
 {
+    public function rooms() {
+        return $this->belongsToMany(Room::class, 'room_user', 'user_id', 'room_id')->withTimestamps();
+    }
 
+    public function admin() {
+        return $this->hasMany(Room::class);
+    }
 }
