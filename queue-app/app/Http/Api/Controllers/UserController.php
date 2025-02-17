@@ -5,13 +5,15 @@ namespace App\Http\Api\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Domain\User\Domain\Services\UserDomainService;
+use App\Domain\User\Domain\Services\UserService;
 use App\Http\Requests\UserRequest;
 use App\Http\Api\Presenters\UserPresenter;
 
 class UserController extends Controller
 {
     public function __construct(
-        private UserDomainService $userDomainService
+        private UserDomainService $userDomainService,
+        private UserService $userService
     )
     {
     }
@@ -26,4 +28,45 @@ class UserController extends Controller
         ]);
 
     }
+    public function assignToRoom(Request $request)
+    {
+        try {
+            $userId = $request->input('user_id');
+            $roomId = $request->input('room_id');
+
+            $this->userService->assignToRoom($userId, $roomId);
+
+            return $this->asJson([
+                'success' => true,
+                'message' => 'User successfully assigned to room',
+            ]);
+        } catch (\Exception $e) {
+            return $this->asJson([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function removeFromRoom(Request $request)
+    {
+        try {
+            $userId = $request->input('user_id');
+            $roomId = $request->input('room_id');
+
+            $this->userService->removeFromRoom($userId, $roomId);
+
+            return $this->asJson([
+                'success' => true,
+                'message' => 'User successfully removed from room',
+            ]);
+        } catch (\Exception $e) {
+            return $this->asJson([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+
 }
