@@ -68,5 +68,45 @@ class UserController extends Controller
         }
     }
 
+    public function assignToQueue(Request $request)
+    {
+        try {
+            $userId = $request->input('user_id');
+            $queueId = $request->input('queue_id');
+
+            $this->userService->assignToQueue($userId, $queueId);
+
+            return $this->asJson([
+                'success' => true,
+                'message' => 'User successfully assigned to queue',
+            ]);
+        } catch (\Exception $e) {
+            return $this->asJson([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function removeFromQueue(Request $request)
+    {
+        try {
+            $userId = $request->input('user_id');
+            $queueId = $request->input('queue_id');
+
+            $this->userService->removeFromQueue($userId, $queueId);
+
+            return $this->asJson([
+                'success' => true,
+                'message' => 'User successfully removed from queue',
+            ]);
+        } catch (\Exception $e) {
+            return $this->asJson([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
 
 }

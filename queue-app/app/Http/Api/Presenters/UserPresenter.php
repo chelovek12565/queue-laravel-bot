@@ -14,7 +14,7 @@ class UserPresenter extends JsonResource
 
     public function toArray(Request $request): array
     {
-        return [
+        $data = [
             'id'          => $this->id,
             'tgid'        => $this->tgid,
             'first_name'  => $this->first_name,
@@ -23,5 +23,14 @@ class UserPresenter extends JsonResource
             'updated_at'  => $this->updated_at,
             'created_at'  => $this->created_at
         ];
+
+        if ($this->pivot) {
+            if ($this->pivot->position) {
+                $data['position'] = $this->pivot->position;
+            }
+        }
+
+        return $data;
+
     }
 }

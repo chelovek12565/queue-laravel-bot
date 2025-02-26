@@ -4,6 +4,7 @@
 namespace App\Domain\User\Domain\Entities;
 
 use App\Domain\Room\Entities\Room;
+use App\Domain\Queue\Entities\Queue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -25,5 +26,9 @@ class User extends Model
 
     public function admin() {
         return $this->hasMany(Room::class);
+    }
+
+    public function queues() {
+        return $this->belongsToMany(Queue::class)->withPivot('position')->withTimestamps();
     }
 }

@@ -2,17 +2,17 @@
 
 namespace App\Domain\User\Domain\Services;
 
-use App\Domain\User\Domain\Entities\User;
-use App\Domain\Room\Entities\Room;
+use App\Domain\Queue\Repositories\QueueRepository;
 use App\Domain\User\Domain\Repositories\UserRepository;
 use App\Domain\Room\Repositories\RoomRepository;
 
 
-class UserService 
+class UserService
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private RoomRepository $roomRepository,
+        private UserRepository  $userRepository,
+        private RoomRepository  $roomRepository,
+        private QueueRepository $queueRepository
     )
     {
     }
@@ -38,6 +38,29 @@ class UserService
             $user->rooms()->detach($room);
         } else {
             throw new \Exception('User or room not found');
+        }
+    }
+
+    public function assignToQueue($userId, $queueId) {
+        $user = $this->userRepository->find($userId);
+        $queue = $this->queueRepository->find($queueId);
+
+        if ($user && $queue) {
+            $user->queues()->attach($queue, ['position' => $queue->maxPosition() + 1]);
+        } else {
+            throw new \Exception('User or queue not found');
+        }
+    }
+
+    public function removeFromQueue($userId, $queueId) {
+    $queue = $this->queueRepository->find($queueId);
+    $user = $queue->users->where('id', $userId)->first();
+
+        if ($user && $queue) {
+            $user->queues()->detach($queue);
+            $queue->decreasePositionHigherThan($user->pivot->position);
+        } else {
+            throw new \Exception('User or queue not found');
         }
     }
 }
