@@ -20,6 +20,8 @@ use Illuminate\Support\Carbon;
  */
 class User extends Model
 {
+    protected $guarded = [];
+    
     public function rooms() {
         return $this->belongsToMany(Room::class, 'room_user', 'user_id', 'room_id')->withTimestamps();
     }

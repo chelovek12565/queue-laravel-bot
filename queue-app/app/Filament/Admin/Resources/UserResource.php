@@ -4,7 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Filament\Admin\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Domain\User\Domain\Entities\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -22,16 +22,53 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+        ->schema([
+            Forms\Components\TextInput::make('tgid')
+                ->label('Telegram ID')
+                ->required(),
+            Forms\Components\TextInput::make('first_name')
+                ->required()
+                ->maxLength(255),
+            Forms\Components\TextInput::make('second_name')
+                ->maxLength(255),
+            Forms\Components\TextInput::make('username')
+                ->maxLength(255),
+            Forms\Components\Select::make('rooms')
+                ->relationship('rooms', 'name')
+                ->multiple()
+                ->preload(),
+            Forms\Components\Select::make('queues')
+                ->relationship('queues', 'name')
+                ->multiple()
+                ->preload(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tgid')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('first_name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('second_name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('username')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
