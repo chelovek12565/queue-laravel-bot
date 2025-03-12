@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-# Установка системных зависимостей
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -8,13 +7,14 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    zlib1g-dev \
+    libicu-dev \
+    g++
 
-# Установка PHP расширений
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl
 
-# Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Установка рабочей директории
 WORKDIR /var/www/application

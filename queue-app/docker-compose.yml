@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-  # PHP-FPM сервис
   app:
     build:
       context: .
@@ -13,7 +12,6 @@ services:
     networks:
       - laravel_network
 
-  # Nginx сервис
   nginx-proxy:
     image: nginx:alpine
     container_name: common-nginx
@@ -28,7 +26,6 @@ services:
     depends_on:
       - app
 
-  # MySQL сервис
   mysql8:
     build:
       context: .
@@ -40,12 +37,14 @@ services:
       MYSQL_HOST: "%"
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
     networks:
       - laravel_network
 
-  # PhpMyAdmin сервис
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: laravel-phpmyadmin
     restart: unless-stopped
     ports:
       - "8080:80"
@@ -59,6 +58,9 @@ services:
       - mysql8
       - nginx-proxy
 
+volumes:
+  mysql_data:
+ 
 networks:
   laravel_network:
     driver: bridge
