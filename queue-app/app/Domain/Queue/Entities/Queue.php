@@ -5,7 +5,7 @@ namespace App\Domain\Queue\Entities;
 use App\Domain\User\Domain\Entities\User;
 use App\Domain\Room\Entities\Room;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int         $id
@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Queue extends Model {
 
+    protected $guarded = [];
+
     public function room() {
         return $this->belongsTo(Room::class);
     }
@@ -28,6 +30,10 @@ class Queue extends Model {
 
     public function users() {
         return $this->belongsToMany(User::class)->withPivot('position')->withTimestamps();
+    }
+
+    public function queueUsers(): HasMany {
+        return $this->hasMany(QueueUser::class);
     }
 
     public function maxPosition(): int {

@@ -20,10 +20,10 @@ return new class extends Migration
         });
 
         Schema::create('queue_user', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('queue_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('position')->default(0);
-            $table->primary(['queue_id', 'user_id']);
             $table->timestamps();
         });
 

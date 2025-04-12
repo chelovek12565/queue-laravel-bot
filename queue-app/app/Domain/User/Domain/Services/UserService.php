@@ -17,25 +17,25 @@ class UserService
     {
     }
 
-    public function assignToRoom($userId, $roomId)
+    public function assignToRoom(int $userId, int $roomId)
     {
-        $user = $this->userRepository->find($userId);
         $room = $this->roomRepository->find($roomId);
 
-        if ($user && $room) {
-            $user->rooms()->attach($room);
-        } else {
-            throw new \Exception('User or room not found');
+        try {
+            $room->users()->attach($userId);
+        } catch(\Exception $e) {
+            throw $e;
         }
     }
 
-    public function removeFromRoom($userId, $roomId)
+    public function removeFromRoom(int $userId, int $roomId)
     {
         $user = $this->userRepository->find($userId);
         $room = $this->roomRepository->find($roomId);
 
         if ($user && $room) {
             $user->rooms()->detach($room);
+            $user->save();
         } else {
             throw new \Exception('User or room not found');
         }

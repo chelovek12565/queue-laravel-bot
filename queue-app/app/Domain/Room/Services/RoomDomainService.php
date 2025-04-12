@@ -4,7 +4,6 @@ namespace App\Domain\Room\Services;
 
 use App\Domain\Room\DTO\RoomDTO;
 use App\Domain\Room\Entities\Room;
-use App\Domain\User\Domain\Repositories\UserRepository;
 use App\Domain\User\Domain\Services\UserService;
 
 class RoomDomainService
@@ -29,6 +28,7 @@ class RoomDomainService
     {
         $room->name = $dto->resolve($dto->name, $room->name);
         $room->description = $dto->resolve($dto->description, $room->description);
+        // $room->description = gettype($dto->userId) . $dto->userId . ' ' . gettype($dto->name). $dto->name;
         $room->user_id = $dto->resolve($dto->userId, $room->user_id);
 
         $room->save();

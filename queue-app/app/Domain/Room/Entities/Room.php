@@ -19,8 +19,11 @@ use Illuminate\Support\Carbon;
 class Room extends Model
 {
     use SoftDeletes;
+
+    protected $guarded = [];
+
     public function users() {
-        return $this->belongsToMany(User::class, 'room_user', 'room_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'room_user')->withTimestamps();
     }
 
     public function creator() {

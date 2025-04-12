@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Admin\Resources\UserResource\Pages;
+namespace App\Filament\Admin\Resources\QueueResource\Pages;
 
-use App\Filament\Admin\Resources\UserResource;
+use App\Filament\Admin\Resources\QueueResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListUsers extends ListRecords
+class ListQueues extends ListRecords
 {
-    protected static string $resource = UserResource::class;
+    protected static string $resource = QueueResource::class;
 
     protected function getHeaderActions(): array
     {
