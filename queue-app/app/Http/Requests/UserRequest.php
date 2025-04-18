@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Domain\User\Domain\DTO\UserDTO;
+use Spatie\LaravelData\Optional;
 
 class UserRequest extends FormRequest
 {
@@ -35,8 +36,8 @@ class UserRequest extends FormRequest
         return new UserDTO(
             tgid: $this->validated('tgid'),
             firstName: $this->validated('first_name'),
-            secondName: $this->validated('second_name'),
-            username: $this->validated('username')
+            secondName: $this->validated('second_name') ? $this->validated('second_name') : Optional::create(),
+            username: $this->validated('username') ? $this->validated('username') : Optional::create()
         );
     }
 }

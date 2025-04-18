@@ -22,6 +22,10 @@
     color: var(--tg-theme-text-color);
 }
 
+.navbar-brand:hover {
+    color: var(--tg-theme-text-color);
+}
+
 .toggle-queue {
     position: fixed;
     bottom: 20px;

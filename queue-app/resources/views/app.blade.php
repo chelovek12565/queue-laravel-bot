@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'My Laravel App')</title>
-    <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
-    <!-- CSS -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    <!-- JS -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <script src="{{ mix('js/app.js') }}"></script>
 
     @yield('linksAndStyles')
 
