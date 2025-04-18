@@ -7,9 +7,6 @@ use App\Domain\Queue\Entities\Queue;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Base\Models\Model;
-use App\Domain\User\Domain\Entities\User;
-use Illuminate\Support\Facades\Log;
 
 
 class QueueResource extends Resource
