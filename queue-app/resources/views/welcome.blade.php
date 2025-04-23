@@ -1,11 +1,10 @@
-<!-- resources/views/home.blade.php -->
 @extends('app')
 
 @section('title', 'Home Page')
 
 @section('linksAndStyles')
 
-
+<script src="{{mix('js/welcome.js')}}"></script>
 
 @endsection
 
@@ -18,6 +17,6 @@
     </div>
   </div>
 
-<button class="btn success toggle-queue" type="button"> Toggle</button>
+{{-- <button class="btn success toggle-queue" type="button"> Toggle</button> --}}
 
 @endsection

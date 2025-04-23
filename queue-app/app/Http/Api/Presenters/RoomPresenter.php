@@ -19,8 +19,9 @@ class RoomPresenter extends JsonResource
             'description' => $this->description,
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,
-            'creator'     => new UserPresenter($this->creator),
-            'users'       => UserPresenter::collection($this->users),
+            'creator'     => new UserShortPresenter($this->creator),
+            'users'       => UserShortPresenter::collection($this->users),
+            'queues'      => QueuePresenter::collection($this->queues)
         ];
     }
 }

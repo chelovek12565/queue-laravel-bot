@@ -7023,28 +7023,18 @@ __webpack_require__.r(__webpack_exports__);
 
 // Initialize Telegram WebApp outside the function
 var webApp = window.Telegram && window.Telegram.WebApp;
-
-// Function to send user data to the API
 function sendUserDataToApi() {
-  console.info('pepepe');
-  // Check if we're running in a Telegram Mini App
   if (webApp) {
     var _webApp$initDataUnsaf;
-    // Get user data from Telegram WebApp
     var user = (_webApp$initDataUnsaf = webApp.initDataUnsafe) === null || _webApp$initDataUnsaf === void 0 ? void 0 : _webApp$initDataUnsaf.user;
     if (user) {
-      // Prepare the data to send
       var userData = {
         tgid: user.id,
         first_name: user.first_name,
         second_name: user.last_name || '',
-        // last_name might be optional
-        username: user.username || '' // username might be optional
+        username: user.username || ''
       };
-      console.log(userData);
-
-      // Make the API request
-      fetch('/api/user/store', {
+      return fetch('/api/user/store', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -7056,21 +7046,28 @@ function sendUserDataToApi() {
         }
         return response.json();
       }).then(function (data) {
-        console.log('User data stored successfully:', data);
+        return data; // returned to the caller
       })["catch"](function (error) {
         console.error('Error storing user data:', error);
+        throw error; // propagate error to the caller
       });
     } else {
       console.warn('No user data available in Telegram WebApp');
+      return Promise.resolve(null);
     }
   } else {
     console.warn('Not running in a Telegram Mini App environment');
+    return Promise.resolve(null);
   }
 }
-
-// Call the function when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-  sendUserDataToApi();
+  sendUserDataToApi().then(function (userData) {
+    console.log(userData);
+    var userReadyEvent = new CustomEvent('userReady', {
+      detail: userData
+    });
+    document.dispatchEvent(userReadyEvent);
+  });
 });
 
 /***/ }),

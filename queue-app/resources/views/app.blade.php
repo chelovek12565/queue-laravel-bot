@@ -7,8 +7,8 @@
     <title>@yield('title', 'My Laravel App')</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <script src="{{ mix('js/app.js') }}"></script>
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @yield('linksAndStyles')
 

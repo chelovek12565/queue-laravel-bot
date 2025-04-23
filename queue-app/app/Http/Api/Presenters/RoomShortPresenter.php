@@ -19,7 +19,7 @@ class RoomShortPresenter extends JsonResource
             'description' => $this->description,
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,
-            'creator'     => new UserPresenter($this->creator),
+            'creator'     => new UserShortPresenter($this->creator),
         ];
     }
 }

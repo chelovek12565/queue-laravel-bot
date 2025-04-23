@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @mixin User
  */
-class UserPresenter extends JsonResource
+class UserShortPresenter extends JsonResource
 {
 
     public function toArray(Request $request): array
@@ -20,8 +20,7 @@ class UserPresenter extends JsonResource
             'second_name' => $this->second_name,
             'username'    => $this->username,
             'updated_at'  => $this->updated_at,
-            'created_at'  => $this->created_at,
-            'rooms'       => RoomPresenter::collection($this->rooms)
+            'created_at'  => $this->created_at
         ];
 
         if ($this->pivot) {

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Room\Entities;
 
+use App\Domain\Queue\Entities\Queue;
 use App\Domain\User\Domain\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,5 +29,9 @@ class Room extends Model
 
     public function creator() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function queues() {
+        return $this->hasMany(Queue::class);
     }
 }
