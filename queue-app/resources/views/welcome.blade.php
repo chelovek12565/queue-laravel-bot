@@ -1,22 +1,24 @@
 @extends('app')
 
-@section('title', 'Home Page')
+@section('title', 'Комнаты')
 
 @section('linksAndStyles')
 
 <script src="{{mix('js/welcome.js')}}"></script>
+<link href="{{mix('css/welcome.css')}}" rel="stylesheet">
 
 @endsection
 
 @section('content')
 
-<div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-  </div>
+<h3 style="display: none" id="welcomeHeader">Похоже вы не создадите ни в какой комнате! Для начала работы с приложением, <a href="/rooms">создайте свою комнату</a>, или присоединитесь к уже существующей.</h3>
 
-{{-- <button class="btn success toggle-queue" type="button"> Toggle</button> --}}
+<div class="d-grid gap-2 mx-auto">
+    <button class="btn btn-primary" type="button">Создать комнату</button>
+</div>
+
+<h6 id="welcomeRooms" style="display: none">Вот комнаты, в которых вы состоите</h6>
+
+<livewire:container.room-container />
 
 @endsection

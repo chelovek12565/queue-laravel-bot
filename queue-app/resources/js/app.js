@@ -3,6 +3,8 @@ import './bootstrap';
 // Initialize Telegram WebApp outside the function
 const webApp = window.Telegram && window.Telegram.WebApp;
 
+const BackButton = window.Telegram.WebApp.BackButton;
+
 function sendUserDataToApi() {
     if (webApp) {
         const user = webApp.initDataUnsafe?.user;
@@ -48,6 +50,12 @@ function sendUserDataToApi() {
 
 document.addEventListener('DOMContentLoaded', () => {
     sendUserDataToApi().then(userData => {
+
+        if (window.location.search !== "" || window.location.pathname !== "/") {
+            BackButton.show();
+        } else {
+            BackButton.hide();
+}
         const userReadyEvent = new CustomEvent('userReady', {detail: userData});
         document.dispatchEvent(userReadyEvent);
     });

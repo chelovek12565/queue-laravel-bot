@@ -17,9 +17,9 @@
     <header>
         <nav class="navbar">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">Очередь</a>
+                <a class="navbar-brand" href="#">@yield('title')</a>
             </div>
-          </nav>
+        </nav>
     </header>
 
     <main>

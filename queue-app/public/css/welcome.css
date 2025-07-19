@@ -1,0 +1,29 @@
+#welcomeHeader, #welcomeRooms {
+  margin-left: 10%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.btn-primary {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: var(--tg-theme-button-color);
+  color: var(--tg-theme-text-color);
+}
+
+.btn-primary:active {
+  background-color: var(--tg-theme-text-color);
+  color: var(--tg-theme-button-color);
+}
+
+.btn-primary:focus {
+  background-color: var(--tg-theme-button-color);
+  color: var(--tg-theme-text-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--tg-theme-button-color);
+  color: var(--tg-theme-text-color);
+}

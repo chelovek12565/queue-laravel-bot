@@ -7023,6 +7023,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // Initialize Telegram WebApp outside the function
 var webApp = window.Telegram && window.Telegram.WebApp;
+var BackButton = window.Telegram.WebApp.BackButton;
 function sendUserDataToApi() {
   if (webApp) {
     var _webApp$initDataUnsaf;
@@ -7062,7 +7063,11 @@ function sendUserDataToApi() {
 }
 document.addEventListener('DOMContentLoaded', function () {
   sendUserDataToApi().then(function (userData) {
-    console.log(userData);
+    if (window.location.search !== "" || window.location.pathname !== "/") {
+      BackButton.show();
+    } else {
+      BackButton.hide();
+    }
     var userReadyEvent = new CustomEvent('userReady', {
       detail: userData
     });
@@ -7099,6 +7104,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/sass/welcome.scss":
+/*!*************************************!*\
+  !*** ./resources/sass/welcome.scss ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7219,6 +7237,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
+/******/ 			"css/welcome": 0,
 /******/ 			"css/app": 0
 /******/ 		};
 /******/ 		
@@ -7269,8 +7288,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/welcome","css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/welcome","css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/welcome","css/app"], () => (__webpack_require__("./resources/sass/welcome.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
