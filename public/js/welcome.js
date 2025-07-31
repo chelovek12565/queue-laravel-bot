@@ -1,17 +1,1 @@
-/******/ (() => { // webpackBootstrap
-/*!*********************************!*\
-  !*** ./resources/js/welcome.js ***!
-  \*********************************/
-document.addEventListener('userReady', function (e) {
-  var userData = e.detail.data;
-  if (userData.rooms) {
-    document.getElementById('welcomeRooms').style.display = "block";
-    Livewire.dispatch('userDataLoaded', {
-      user: userData
-    });
-  } else {
-    document.getElementById('welcomeHeader').style.display = "block";
-  }
-});
-/******/ })()
-;
+document.addEventListener("userReady",(function(e){var t=e.detail.data;0!==t.rooms.length?(document.getElementById("welcomeRoomsHeader").style.display="block",Livewire.dispatch("userDataLoaded",{user:t})):document.getElementById("welcomeEmptyRoomsHeader").style.display="block"}));

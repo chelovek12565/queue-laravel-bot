@@ -1,11 +1,11 @@
 document.addEventListener('userReady', (e) => {
     let userData = e.detail.data;
-    
-    if (userData.rooms) {
-        document.getElementById('welcomeRooms').style.display = "block";
+
+    if (userData.rooms.length !== 0) {
+        document.getElementById('welcomeRoomsHeader').style.display = "block";
         Livewire.dispatch('userDataLoaded', {user: userData});
     } else {
-        document.getElementById('welcomeHeader').style.display = "block";
+        document.getElementById('welcomeEmptyRoomsHeader').style.display = "block";
     }
 
 });
