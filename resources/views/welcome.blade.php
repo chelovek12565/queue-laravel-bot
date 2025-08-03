@@ -11,7 +11,7 @@
 
 @section('content')
 
-<h3 style="display: none" id="welcomeEmptyRoomsHeader">Похоже вы не создадите ни в какой комнате! Для начала работы с приложением, <a href="/rooms">создайте свою комнату</a>, или присоединитесь к уже существующей.</h3>
+<h3 style="display: none" id="welcomeEmptyRoomsHeader">Похоже вы не состоите ни в какой комнате! Для начала работы с приложением, создайте свою комнату, или присоединитесь к уже существующей.</h3>
 
 <div class="d-grid gap-2 mx-auto">
     <button class="btn btn-primary" type="button">Создать комнату</button>
