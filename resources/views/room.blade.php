@@ -16,13 +16,11 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Участники</h5>
-                </div>
-                <div class="card-body">
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="participantsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Показать участников ({{ $room->users->count() }})
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="participantsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-users"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="participantsDropdown">
                             @forelse($room->users as $user)
@@ -41,6 +39,9 @@
                             @endforelse
                         </ul>
                     </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-0">Участников: {{ $room->users->count() }}</p>
                 </div>
             </div>
         </div>
