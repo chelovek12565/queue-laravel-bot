@@ -10,8 +10,8 @@ Route::get('/', function () {
 
 Route::get('/rooms/{id}', function (string $id) {
     return view('room', ['room' => Room->findOrFail($id)]);
-})->name('room');
+});
 
 Route::get('/queue/{id}', function (string $id) {
     return view('queue', ['queue' => Queue->findOrFail($id)]);
-})->name('queue');
+});
