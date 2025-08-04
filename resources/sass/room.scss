@@ -8,6 +8,11 @@
     color: var(--tg-theme-text-color);
 }
 
+.nav-link:active {
+    background-color: var(--tg-theme-bg-color);
+    color: var(--tg-theme-text-color);
+}
+
 .list-group-item {
     background-color: var(--tg-theme-secondary-bg-color);
     border-color: var(--tg-theme-secondary-bg-color);
