@@ -1,10 +1,12 @@
 .nav-link {
     color: var(--tg-theme-text-color);
+    border-color: var(--tg-theme-section-separator-color);
     background-color: var(--tg-theme-secondary-bg-color);
 }
 
 .nav-tabs .nav-link.active {
     background-color: var(--tg-theme-bg-color);
+    border-color: var(--tg-theme-section-separator-color);
     color: var(--tg-theme-text-color);
 }
 
