@@ -48,9 +48,30 @@
       @endif
     </div>
     <div class="tab-pane fade" id="queues" role="tabpanel" aria-labelledby="queues-tab">
-      <h5 class="card-title">Очереди</h5>
-      <p class="card-text">Content for Очереди tab.</p>
-      <a href="#" class="btn btn-primary">Go somewhere else</a>
+      <div class="d-grid gap-2 mx-auto">
+        <a href="#" class="btn btn-primary">Создать очередь</a>
+      </div>
+      @if($room->queues->isEmpty())
+        <p class="card-text">В этой комнате пока нет очередей.</p>
+      @else
+        <ul class="list-group">
+          @foreach($room->queues as $queue)
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>{{ $queue->name }}</span>
+                <small class="text-muted">
+                  Создатель: 
+                  @if($queue->creator->username)
+                    {{ $queue->creator->username }}
+                  @else
+                    {{ $queue->creator->first_name }} {{ $queue->creator->second_name }}
+                  @endif
+                </small>
+              </div>
+            </li>
+          @endforeach
+        </ul>
+      @endif
     </div>
   </div>
 </div>
