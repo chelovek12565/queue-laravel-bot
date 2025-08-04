@@ -60,14 +60,6 @@
               <a href="{{ route('queue', $queue->id) }}" class="text-decoration-none">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>{{ $queue->name }}</span>
-                  <small class="text-muted">
-                    Создатель: 
-                    @if($queue->creator->username)
-                      {{ $queue->creator->username }}
-                    @else
-                      {{ $queue->creator->first_name }} {{ $queue->creator->second_name }}
-                    @endif
-                  </small>
                 </div>
               </a>
             </li>
