@@ -1,1 +1,5 @@
-#welcomeHeader,#welcomeRooms{margin-bottom:1em;margin-left:10%;margin-top:1em}.btn-primary{background-color:var(--tg-theme-button-color);color:var(--tg-theme-text-color);margin:1em 10%}.btn-primary:active{background-color:var(--tg-theme-text-color);color:var(--tg-theme-button-color)}.btn-primary:focus,.btn-primary:hover{background-color:var(--tg-theme-button-color);color:var(--tg-theme-text-color)}
+#welcomeEmptyRoomsHeader, #welcomeRoomsHeader {
+  margin-left: 10%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
