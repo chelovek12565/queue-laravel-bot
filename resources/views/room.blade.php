@@ -28,7 +28,9 @@
   </div>
   <div class="card-body tab-content" id="roomTabContent">
     <div class="tab-pane fade show active" id="participants" role="tabpanel" aria-labelledby="participants-tab">
-      <a href="#" class="btn btn-primary">Добавить участника</a>
+      <div class="d-grid gap-2 mx-auto">
+        <a href="#" class="btn btn-primary">Добавить участника</a>
+      </div>
       @if($room->users->isEmpty())
         <p class="card-text">В этой комнате пока нет участников.</p>
       @else
