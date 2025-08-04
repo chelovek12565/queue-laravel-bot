@@ -9,9 +9,9 @@ Route::get('/', function () {
 });
 
 Route::get('/rooms/{id}', function (string $id) {
-    return view('room', ['room' => Room->findOrFail($id)]);
+    return view('room', ['room' => Room::all()->findOrFail($id)]);
 });
 
 Route::get('/queue/{id}', function (string $id) {
-    return view('queue', ['queue' => Queue->findOrFail($id)]);
+    return view('queue', ['queue' => Queue::all()->findOrFail($id)]);
 });
