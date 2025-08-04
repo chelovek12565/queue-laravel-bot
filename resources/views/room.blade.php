@@ -57,7 +57,7 @@
         <ul class="list-group">
           @foreach($room->queues as $queue)
             <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center" href="{{ route('queue', $queue->id) }}">
                 <span>{{ $queue->name }}</span>
                 <small class="text-muted">
                   Создатель: 
