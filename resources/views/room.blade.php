@@ -4,6 +4,12 @@
 {{'Комната ' . $room->name}}
 @endsection
 
+@section('linksAndStyles')
+
+<link href="{{mix('css/room.css')}}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 <div class="card text-center">
   <div class="card-header">
@@ -22,13 +28,18 @@
   </div>
   <div class="card-body tab-content" id="roomTabContent">
     <div class="tab-pane fade show active" id="participants" role="tabpanel" aria-labelledby="participants-tab">
+      <a href="#" class="btn btn-primary">Добавить участника</a>
       @if($room->users->isEmpty())
         <p class="card-text">В этой комнате пока нет участников.</p>
       @else
         <ul class="list-group">
           @foreach($room->users as $user)
             <li class="list-group-item">
-              {{ $user->username }} — {{ $user->first_name }} {{ $user->second_name }}
+              @if($user->username)
+                {{ $user->username }}
+              @else
+                {{ $user->first_name }} {{ $user->second_name }}
+              @endif
             </li>
           @endforeach
         </ul>

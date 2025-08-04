@@ -1,0 +1,8 @@
+.nav-link {
+    color: var(--tg-theme-text-color);
+    background-color: var(--tg-theme-section-bg-color);
+}
+
+.nav-link:active {
+    background-color: var(--tg-theme-secondary-bg-color);
+}
