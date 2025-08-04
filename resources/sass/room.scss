@@ -1,19 +1,25 @@
 .nav-link {
     color: var(--tg-theme-text-color);
-    background-color: var(--tg-theme--bg-color);
+    background-color: var(--tg-theme-secondary-bg-color);
 }
 
 .nav-link.active {
-    background-color: var(--tg-theme-button-color);
+    background-color: var(--tg-theme-bg-color);
     color: var(--tg-theme-text-color);
 }
 
 .list-group-item {
     background-color: var(--tg-theme-secondary-bg-color);
+    border-color: var(--tg-theme-secondary-bg-color);
     color: var(--tg-theme-text-color);
 }
 
-.card {
+.card-header {
+    background-color: var(--tg-theme-secondary-bg-color);
+    border-color: var(--tg-theme-section-separator-color);
+}
+
+.card-body {
     background-color: var(--tg-theme-bg-color);
-    border-color: var(--tg-theme-secondary-bg-color);
+    border-color: var(--tg-theme-section-separator-color);
 }
