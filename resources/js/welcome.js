@@ -37,11 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                     },
                     body: JSON.stringify({
-                        user_id,
-                        name,
+                        user_id: parseInt(user_id),
+                        name: name,
                         description: description || null
                     })
                 });
