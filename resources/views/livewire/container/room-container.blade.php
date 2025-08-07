@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.3s>
     @foreach ($rooms as $room)
         @livewire('card', [
             'title' => $room['name'],

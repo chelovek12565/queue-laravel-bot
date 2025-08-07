@@ -15,6 +15,12 @@ class RoomContainer extends Component
         $this->rooms = $user['rooms'];
     }
 
+    #[On('roomCreated')]
+    public function handleRoomCreated($room)
+    {
+        $this->rooms[] = $room;
+    }
+
     public function render()
     {
         return view('livewire.container.room-container');
