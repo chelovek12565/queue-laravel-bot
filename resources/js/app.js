@@ -31,6 +31,7 @@ function sendUserDataToApi() {
                 return response.json();
             })
             .then(data => {
+                sessionStorage.setItem('userId', userData.tgid);
                 return data; // returned to the caller
             })
             .catch(error => {
@@ -55,7 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
             BackButton.show();
         } else {
             BackButton.hide();
-}
+        }
+
+        BackButton.onClick(function() {
+            window.history.back();
+        });
         const userReadyEvent = new CustomEvent('userReady', {detail: userData});
         document.dispatchEvent(userReadyEvent);
     });
