@@ -6,12 +6,13 @@
 
 @section('linksAndStyles')
 
+<script src="{{mix('js/room.js')}}"></script>
 <link href="{{mix('css/room.css')}}" rel="stylesheet">
 
 @endsection
 
 @section('content')
-<div class="card text-center">
+<div class="card text-center" data-room-id="{{ $room->id }}">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs" id="roomTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -49,8 +50,22 @@
     </div>
     <div class="tab-pane fade" id="queues" role="tabpanel" aria-labelledby="queues-tab">
       <div class="d-grid gap-2 mx-auto">
-        <a href="#" class="btn btn-primary">Создать очередь</a>
+        <button class="btn btn-primary" type="button" id="showCreateQueueFormBtn">Создать очередь</button>
       </div>
+
+      <form id="createQueueForm" style="display: none; margin: 2em 10% 2em 10%" method="POST">
+        <div class="mb-3">
+          <label for="queueName" class="form-label">Название очереди</label>
+          <input type="text" class="form-control" id="queueName" name="name" required maxlength="255">
+        </div>
+        <div class="mb-3">
+          <label for="queueDescription" class="form-label">Описание (необязательно)</label>
+          <textarea class="form-control" id="queueDescription" name="description" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Создать</button>
+        <button type="button" class="btn btn-secondary" id="cancelCreateQueueFormBtn">Отмена</button>
+      </form>
+
       @if($room->queues->isEmpty())
         <p class="card-text">В этой комнате пока нет очередей.</p>
       @else

@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const name = form.roomName.value.trim();
             const description = form.roomDescription.value.trim();
-            // TODO: Replace with actual user_id from context/session
-            const user_id = sessionStorage.getItem('userId') || 1;
+            const user_id = sessionStorage.getItem('userId');
             try {
                 const response = await fetch('/api/room', {
                     method: 'POST',
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     form.style.display = 'none';
                     showBtn.style.display = 'block';
                     form.reset();
-                    // Optionally refresh room list or show a message
                     Livewire.dispatch('roomCreated', {room: data.data});
                 } else {
                     alert(data.message || 'Ошибка при создании комнаты');
