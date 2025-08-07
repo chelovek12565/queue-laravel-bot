@@ -31,7 +31,7 @@ function sendUserDataToApi() {
                 return response.json();
             })
             .then(data => {
-                sessionStorage.setItem('userId', data.id);
+                sessionStorage.setItem('userId', data.data.id);
                 return data; // returned to the caller
             })
             .catch(error => {
