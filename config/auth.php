@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'telegram' => [
+            'driver' => 'session',
+            'provider' => 'telegram_users',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'telegram_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Domain\User\Domain\Entities\User::class,
         ],
 
         // 'users' => [

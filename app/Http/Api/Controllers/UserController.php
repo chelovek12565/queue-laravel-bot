@@ -3,6 +3,7 @@
 namespace App\Http\Api\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Traits\HasTelegramAuth;
 use Illuminate\Http\Request;
 use App\Domain\User\Domain\Services\UserDomainService;
 use App\Domain\User\Domain\Services\UserService;
@@ -11,6 +12,8 @@ use App\Http\Api\Presenters\UserPresenter;
 
 class UserController extends Controller
 {
+    use HasTelegramAuth;
+
     public function __construct(
         private UserDomainService $userDomainService,
         private UserService $userService
@@ -28,13 +31,15 @@ class UserController extends Controller
         ]);
 
     }
+
     public function assignToRoom(Request $request)
     {
         try {
-            $userId = $request->input('user_id');
+            // Use authenticated user's ID instead of requiring it in request
+            $user = $this->requireTelegramAuth();
             $roomId = $request->input('room_id');
 
-            $this->userService->assignToRoom($userId, $roomId);
+            $this->userService->assignToRoom($user->id, $roomId);
 
             return $this->asJson([
                 'success' => true,
@@ -51,10 +56,11 @@ class UserController extends Controller
     public function removeFromRoom(Request $request)
     {
         try {
-            $userId = $request->input('user_id');
+            // Use authenticated user's ID instead of requiring it in request
+            $user = $this->requireTelegramAuth();
             $roomId = $request->input('room_id');
 
-            $this->userService->removeFromRoom($userId, $roomId);
+            $this->userService->removeFromRoom($user->id, $roomId);
 
             return $this->asJson([
                 'success' => true,
@@ -71,10 +77,11 @@ class UserController extends Controller
     public function assignToQueue(Request $request)
     {
         try {
-            $userId = $request->input('user_id');
+            // Use authenticated user's ID instead of requiring it in request
+            $user = $this->requireTelegramAuth();
             $queueId = $request->input('queue_id');
 
-            $this->userService->assignToQueue($userId, $queueId);
+            $this->userService->assignToQueue($user->id, $queueId);
 
             return $this->asJson([
                 'success' => true,
@@ -91,10 +98,11 @@ class UserController extends Controller
     public function removeFromQueue(Request $request)
     {
         try {
-            $userId = $request->input('user_id');
+            // Use authenticated user's ID instead of requiring it in request
+            $user = $this->requireTelegramAuth();
             $queueId = $request->input('queue_id');
 
-            $this->userService->removeFromQueue($userId, $queueId);
+            $this->userService->removeFromQueue($user->id, $queueId);
 
             return $this->asJson([
                 'success' => true,
@@ -107,6 +115,4 @@ class UserController extends Controller
             ], 400);
         }
     }
-
-
 }

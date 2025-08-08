@@ -5,7 +5,7 @@
 @endsection
 
 @section('linksAndStyles')
-<!-- <link href="{{mix('css/room.css')}}" rel="stylesheet"> -->
+<script href="{{mix('js/queue.js')}}"></script>
 @endsection
 
 @section('content')
@@ -16,7 +16,14 @@
 
   <div class="mt-3">
       <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-        <a href="#" class="btn btn-primary">Присоединиться к очереди</a>
+        @php
+          $currentUserId = auth()->id();
+          $isUserInQueue = $currentUserId ? $queue->users->contains('id', $currentUserId) : false;
+        @endphp
+        <button type="button" class="btn {{ $isUserInQueue ? 'btn-danger' : 'btn-primary' }}" 
+                onclick="toggleQueueMembership({{ $queue->id }}, {{ $isUserInQueue ? 'true' : 'false' }})">
+          {{ $isUserInQueue ? 'Покинуть очередь' : 'Присоединиться к очереди' }}
+        </button>
       </div>
     </div>
     
@@ -24,24 +31,7 @@
     <div class="row">
       <div class="col-md-8">
         <h6>Участники очереди</h6>
-        @if($queue->users->isEmpty())
-          <p class="card-text">В этой очереди пока нет участников.</p>
-        @else
-          <ul class="list-group">
-            @foreach($queue->users->sortBy('pivot.position') as $user)
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>
-                  @if($user->username)
-                    {{ $user->username }}
-                  @else
-                    {{ $user->first_name }} {{ $user->second_name }}
-                  @endif
-                </span>
-                <span class="badge bg-primary rounded-pill">{{ $user->pivot->position }}</span>
-              </li>
-            @endforeach
-          </ul>
-        @endif
+        @livewire('container.queue-users-container', ['queueId' => $queue->id])
       </div>
     </div>
 
