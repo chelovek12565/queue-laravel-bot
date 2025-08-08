@@ -224,27 +224,6 @@ class TelegramAuth {
         this.isInitializing = true;
 
         try {
-            // First, try to load from storage
-            const storedUser = this.loadUserFromStorage();
-            
-            if (storedUser) {
-                console.log('User loaded from storage:', storedUser);
-                markAuthInitialized();
-                this.dispatchAuthEvent('ready');
-                return storedUser;
-            }
-
-            // If no stored user, try to get from server
-            const serverUser = await this.getCurrentUser();
-            
-            if (serverUser) {
-                console.log('User authenticated from server:', serverUser);
-                markAuthInitialized();
-                this.dispatchAuthEvent('ready');
-                return serverUser;
-            }
-
-            // If no server authentication, try Telegram WebApp
             if (webApp && webApp.initDataUnsafe?.user) {
                 const telegramUser = webApp.initDataUnsafe.user;
                 const userData = {
@@ -258,7 +237,7 @@ class TelegramAuth {
                 const authResult = await this.login(userData);
                 markAuthInitialized();
                 this.dispatchAuthEvent('ready');
-                return authResult.data.user;
+                return authResult;
             }
 
             console.log('No authentication method available');
