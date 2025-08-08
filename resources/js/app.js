@@ -1,4 +1,4 @@
-import './bootstrap';
+import * as bootstrap from 'bootstrap';
 import { markAuthInitialized, isAuthInitialized, ensureAuthInitialized } from './auth-utils';
 
 // Initialize Telegram WebApp outside the function

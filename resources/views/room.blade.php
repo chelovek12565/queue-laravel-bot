@@ -38,11 +38,7 @@
         <ul class="list-group">
           @foreach($room->users as $user)
             <li class="list-group-item">
-              @if($user->username)
-                {{ $user->username }}
-              @else
                 {{ $user->first_name }} {{ $user->second_name }}
-              @endif
             </li>
           @endforeach
         </ul>
