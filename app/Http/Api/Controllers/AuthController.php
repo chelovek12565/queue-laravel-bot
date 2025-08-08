@@ -3,6 +3,7 @@
 namespace App\Http\Api\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Api\Presenters\UserPresenter;
 use App\Services\TelegramAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -45,13 +46,7 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'User authenticated successfully',
                 'data' => [
-                    'user' => [
-                        'id' => $user->id,
-                        'tgid' => $user->tgid,
-                        'first_name' => $user->first_name,
-                        'second_name' => $user->second_name,
-                        'username' => $user->username,
-                    ]
+                    'user' => UserPresenter::make($user)
                 ]
             ]);
         }
@@ -81,13 +76,7 @@ class AuthController extends Controller
         return $this->asJson([
             'success' => true,
             'data' => [
-                'user' => [
-                    'id' => $user->id,
-                    'tgid' => $user->tgid,
-                    'first_name' => $user->first_name,
-                    'second_name' => $user->second_name,
-                    'username' => $user->username,
-                ]
+                'user' => UserPresenter::make($user)
             ]
         ]);
     }
