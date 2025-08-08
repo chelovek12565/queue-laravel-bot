@@ -45,9 +45,7 @@ class AuthController extends Controller
             return $this->asJson([
                 'success' => true,
                 'message' => 'User authenticated successfully',
-                'data' => [
-                    'user' => UserPresenter::make($user)
-                ]
+                'data' => UserPresenter::make($user)
             ]);
         }
 
@@ -75,9 +73,7 @@ class AuthController extends Controller
 
         return $this->asJson([
             'success' => true,
-            'data' => [
-                'user' => UserPresenter::make($user)
-            ]
+            'data' => UserPresenter::make($user)
         ]);
     }
 
