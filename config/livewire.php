@@ -161,4 +161,6 @@ return [
     'route' => [
         'middleware_group' => 'web',
     ],
+
+    'middleware_group' => 'web',
 ];
