@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const name = form.roomName.value.trim();
             const description = form.roomDescription.value.trim();
-            const user_id = sessionStorage.getItem('userId');
+            const user_id = window.telegramAuth.loadUserFromStorage().id;
             try {
                 const response = await fetch('/api/room', {
                     method: 'POST',
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         'Accept': 'application/json',
                     },
                     body: JSON.stringify({
-                        user_id: parseInt(user_id),
+                        user_id: user_id,
                         name: name,
                         description: description || null
                     })

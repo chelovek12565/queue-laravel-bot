@@ -1,8 +1,7 @@
 function toggleQueueMembership(queueId, isCurrentlyInQueue) {
-    const userId = window.sessionStorage.getItem('userId');
+    const userId = window.telegramAuth.loadUserFromStorage().id;
     
     const button = event.target;
-    const originalText = button.textContent;
     button.disabled = true;
     
     const endpoint = isCurrentlyInQueue ? '/api/user/queue/remove' : '/api/user/queue/assign';

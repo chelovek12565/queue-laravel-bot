@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const name = createQueueForm.queueName.value.trim();
             const description = createQueueForm.queueDescription.value.trim();
-            const user_id = sessionStorage.getItem('userId');
+            const user_id = window.telegramAuth.loadUserFromStorage().id;
             const room_id = document.querySelector('[data-room-id]').getAttribute('data-room-id');
 
             try {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Accept': 'application/json',
                     },
                     body: JSON.stringify({
-                        user_id: parseInt(user_id),
+                        user_id: user_id,
                         room_id: parseInt(room_id),
                         name: name,
                         description: description || null
