@@ -305,16 +305,18 @@ async function sendUserDataToApi() {
 }
 
 // Initialize app when DOM is ready (only once per session)
-window.appInitialized = false;
+// Use sessionStorage to persist initialization state across page navigations
+const isAppInitialized = sessionStorage.getItem('appInitialized') === 'true';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Prevent multiple initializations
-    if (window.appInitialized) {
+    if (isAppInitialized) {
         console.log('App already initialized, skipping...');
         return;
     }
 
-    window.appInitialized = true;
+    // Mark as initialized in sessionStorage
+    sessionStorage.setItem('appInitialized', 'true');
 
     try {
         // Initialize authentication (only once)
