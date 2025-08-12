@@ -305,16 +305,16 @@ async function sendUserDataToApi() {
 }
 
 // Initialize app when DOM is ready (only once per session)
-let appInitialized = false;
+window.appInitialized = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Prevent multiple initializations
-    if (appInitialized) {
+    if (window.appInitialized) {
         console.log('App already initialized, skipping...');
         return;
     }
 
-    appInitialized = true;
+    window.appInitialized = true;
 
     try {
         // Initialize authentication (only once)
