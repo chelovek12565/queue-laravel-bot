@@ -158,9 +158,5 @@ return [
 
     'pagination_theme' => 'tailwind',
 
-    'route' => [
-        'middleware_group' => 'web',
-    ],
-
     'middleware_group' => 'web',
 ];

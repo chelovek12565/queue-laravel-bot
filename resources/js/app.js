@@ -348,5 +348,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+window.addEventListener("beforeunload", () => {
+    sessionStorage.clear();
+  });
+  
 // Export for use in other modules
 export { TelegramAuth };
