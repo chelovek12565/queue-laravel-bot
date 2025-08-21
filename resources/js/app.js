@@ -4,7 +4,7 @@ import { markAuthInitialized, isAuthInitialized, ensureAuthInitialized } from '.
 // Initialize Telegram WebApp outside the function
 const webApp = window.Telegram && window.Telegram.WebApp;
 
-const BackButton = window.Telegram.WebApp.BackButton;
+const BackButton = webApp && webApp.BackButton;
 
 // Authentication class to handle all auth operations
 class TelegramAuth {
@@ -224,6 +224,16 @@ class TelegramAuth {
         this.isInitializing = true;
 
         try {
+            // Try to restore from session storage first
+            const storedUser = this.loadUserFromStorage();
+            if (storedUser) {
+                this.isAuthenticated = true;
+                this.currentUser = storedUser;
+                markAuthInitialized();
+                this.dispatchAuthEvent('ready');
+                return { success: true, data: { user: storedUser } };
+            }
+
             if (webApp && webApp.initDataUnsafe?.user) {
                 const telegramUser = webApp.initDataUnsafe.user;
                 const userData = {
@@ -238,6 +248,14 @@ class TelegramAuth {
                 markAuthInitialized();
                 this.dispatchAuthEvent('ready');
                 return authResult;
+            }
+
+            // Try to restore session from server (existing cookie)
+            const apiUser = await this.getCurrentUser();
+            if (apiUser) {
+                markAuthInitialized();
+                this.dispatchAuthEvent('ready');
+                return { success: true, data: { user: apiUser } };
             }
 
             console.log('No authentication method available');
@@ -304,37 +322,27 @@ async function sendUserDataToApi() {
     }
 }
 
-// Initialize app when DOM is ready (only once per session)
-// Use sessionStorage to persist initialization state across page navigations
-const isAppInitialized = sessionStorage.getItem('appInitialized') === 'true';
-
 document.addEventListener('DOMContentLoaded', async () => {
-    // Prevent multiple initializations
-    if (isAppInitialized) {
-        console.log('App already initialized, skipping...');
-        return;
-    }
-
-    // Mark as initialized in sessionStorage
-    sessionStorage.setItem('appInitialized', 'true');
-
     try {
-        // Initialize authentication (only once)
-        const userData = await window.telegramAuth.initializeAuth();
+        // Ensure authentication is initialized (safe to call every page)
+        await ensureAuthInitialized();
 
-        // Handle back button
-        if (window.location.search !== "" || window.location.pathname !== "/") {
-            BackButton.show();
-        } else {
-            BackButton.hide();
+        // Handle back button (if available in Telegram)
+        if (BackButton) {
+            if (window.location.search !== "" || window.location.pathname !== "/") {
+                BackButton.show();
+            } else {
+                BackButton.hide();
+            }
+
+            BackButton.onClick(function() {
+                window.history.back();
+            });
         }
 
-        BackButton.onClick(function() {
-            window.history.back();
-        });
-
-        // Dispatch user ready event (for backward compatibility)
-        const userReadyEvent = new CustomEvent('userReady', { detail: userData });
+        // Dispatch user ready event with consistent payload
+        const userData = window.telegramAuth.currentUser || null;
+        const userReadyEvent = new CustomEvent('userReady', { detail: { data: userData } });
         document.dispatchEvent(userReadyEvent);
 
     } catch (error) {
@@ -347,10 +355,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.dispatchEvent(errorEvent);
     }
 });
-
-window.addEventListener("beforeunload", () => {
-    sessionStorage.clear();
-  });
   
 // Export for use in other modules
 export { TelegramAuth };
