@@ -1,17 +1,7 @@
 document.addEventListener('userReady', (e) => {
-    const detail = e && e.detail ? e.detail : null;
-    // Support both shapes: detail = user, or detail = { data: user }
-    let userData = (detail && detail.data) ? detail.data : detail;
-    if (!userData && window.telegramAuth) {
-        userData = window.telegramAuth.currentUser || null;
-    }
+    let userData = e.detail.data;
 
-    if (!userData) {
-        // No user yet; nothing to render
-        return;
-    }
-
-    if (Array.isArray(userData.rooms) && userData.rooms.length !== 0) {
+    if (userData.rooms.length !== 0) {
         document.getElementById('welcomeRoomsHeader').style.display = "block";
         Livewire.dispatch('userDataLoaded', {user: userData});
     } else {
