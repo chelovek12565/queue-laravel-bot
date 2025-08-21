@@ -9,8 +9,8 @@ use App\Http\Api\Controllers\AuthController;
 // Authentication routes
 Route::group(['prefix' => 'auth', 'controller' => AuthController::class], function () {
     Route::post('login', 'login');
-    Route::post('logout', 'logout')->middleware('telegram.auth');
-    Route::get('me', 'me')->middleware('telegram.auth');
+    Route::post('logout', 'logout')->middleware('auth:telegram');
+    Route::get('me', 'me')->middleware('auth:telegram');
     Route::post('check', 'checkAuth');
 });
 
@@ -20,7 +20,7 @@ Route::group(['prefix' => 'user', 'controller' => UserController::class], functi
 });
 
 // Protected routes (require Telegram authentication)
-Route::group(['middleware' => 'telegram.auth'], function () {
+Route::group(['middleware' => 'auth:telegram'], function () {
     Route::group(['prefix' => 'user', 'controller' => UserController::class], function () {
         Route::put('room/assign', 'assignToRoom');
         Route::put('room/remove', 'removeFromRoom');
