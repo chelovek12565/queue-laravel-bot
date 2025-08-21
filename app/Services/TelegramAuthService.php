@@ -20,8 +20,7 @@ class TelegramAuthService
         $user = User::createOrUpdateByTgid($tgid, $userData);
         
         if ($user) {
-            // Regenerate session and login the user using the telegram guard
-            request()->session()->regenerate();
+            // Login the user using the telegram guard
             Auth::guard('telegram')->login($user);
             return $user;
         }
