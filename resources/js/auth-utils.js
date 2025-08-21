@@ -177,7 +177,7 @@ export async function login(userData) {
     // Check if already authenticated with same user
     if (auth.checkAuth() && auth.currentUser && auth.currentUser.tgid === userData.tgid) {
         console.log('User already authenticated with same Telegram ID');
-        return { success: true, data: { user: auth.currentUser } };
+        return { success: true, data: auth.currentUser };
     }
 
     return auth.login(userData);

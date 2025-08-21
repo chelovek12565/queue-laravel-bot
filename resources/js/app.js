@@ -41,9 +41,9 @@ class TelegramAuth {
             
             if (data.success) {
                 this.isAuthenticated = true;
-                this.currentUser = data.data.user;
-                this.saveUserToStorage(data.data.user);
-                this.dispatchAuthEvent('login', data.data.user);
+                this.currentUser = data.data;
+                this.saveUserToStorage(data.data);
+                this.dispatchAuthEvent('login', data.data);
                 return data;
             } else {
                 throw new Error(data.message || 'Login failed');
@@ -78,9 +78,9 @@ class TelegramAuth {
             
             if (data.success) {
                 this.isAuthenticated = true;
-                this.currentUser = data.data.user;
-                this.saveUserToStorage(data.data.user);
-                return data.data.user;
+                this.currentUser = data.data;
+                this.saveUserToStorage(data.data);
+                return data.data;
             } else {
                 this.isAuthenticated = false;
                 this.currentUser = null;
@@ -231,7 +231,7 @@ class TelegramAuth {
                 this.currentUser = storedUser;
                 markAuthInitialized();
                 this.dispatchAuthEvent('ready');
-                return { success: true, data: { user: storedUser } };
+                return { success: true, data: storedUser };
             }
 
             if (webApp && webApp.initDataUnsafe?.user) {
@@ -255,7 +255,7 @@ class TelegramAuth {
             if (apiUser) {
                 markAuthInitialized();
                 this.dispatchAuthEvent('ready');
-                return { success: true, data: { user: apiUser } };
+                return { success: true, data: apiUser };
             }
 
             console.log('No authentication method available');
@@ -355,6 +355,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.dispatchEvent(errorEvent);
     }
 });
+
+window.addEventListener("beforeunload", () => {
+    sessionStorage.clear();
+  });
+  
   
 // Export for use in other modules
 export { TelegramAuth };
